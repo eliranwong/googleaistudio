@@ -21,19 +21,17 @@ else:
     print(f"API key json file '{authpath1}' not found!")
     print("Read https://github.com/eliranwong/letmedoit/wiki/Google-API-Setup for setting up Google API.")
     exit(0)
+
 # initiation
 vertexai.init()
 
-model = GenerativeModel("gemini-pro")
-chat = model.start_chat()
-print("Gemini Pro Chat Launched!")
-print("(To quit, enter '.quit')")
-
-def get_chat_response(chat: ChatSession, prompt: str) -> str:
-    response = chat.send_message(prompt)
-    return response.text
-
 def main():
+    model = GenerativeModel("gemini-pro")
+    chat = model.start_chat()
+    print("\nGemini Pro launched!")
+    print("(To start a new chat, enter '.new')")
+    print("(To quit, enter '.quit')")
+
     while True:
         print("------------------------------\n")
         print("Enter your prompt below:")
@@ -41,9 +39,14 @@ def main():
         print("")
         if prompt == ".quit":
             break
+        elif prompt == ".new":
+            chat = model.start_chat()
+            print("New chat started!")
         elif prompt := prompt.strip():
-            print(get_chat_response(chat, prompt))
+            print(chat.send_message(prompt).text)
         print("")
+    print("------------------------------")
+    print("Gemini Pro closed!")
 
 if __name__ == '__main__':
     main()

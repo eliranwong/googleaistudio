@@ -23,3 +23,7 @@ Read https://github.com/eliranwong/letmedoit/wiki/Google-API-Setup for setting u
 # Usage
 
 > geminipro
+
+# Documentation for Developers
+
+https://cloud.google.com/vertex-ai/docs/generative-ai/learn/overview
