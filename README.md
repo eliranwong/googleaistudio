@@ -27,3 +27,12 @@ Read https://github.com/eliranwong/letmedoit/wiki/Google-API-Setup for setting u
 # Documentation for Developers
 
 https://cloud.google.com/vertex-ai/docs/generative-ai/learn/overview
+
+https://cloud.google.com/vertex-ai/docs/generative-ai/learn/models
+
+https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/overview
+
+https://cloud.google.com/vertex-ai/docs/generative-ai/sdk-for-llm/llm-sdk-overview
+
+https://spec.openapis.org/oas/v3.0.3#schema
+
