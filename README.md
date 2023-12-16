@@ -34,5 +34,7 @@ https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/overview
 
 https://cloud.google.com/vertex-ai/docs/generative-ai/sdk-for-llm/llm-sdk-overview
 
+https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/function-calling
+
 https://spec.openapis.org/oas/v3.0.3#schema
 
