@@ -16,7 +16,7 @@ It is part of integrated tools, developed in our [LetMeDoIt AI project](https://
 
 # Google API Setup
 
-Save a copy of your API key JSON file as "~/credentials_googleaistudio.json", where "~" denotes your home directory.
+Save a copy of your API key JSON file as "\~/credentials_googleaistudio.json", where "\~" denotes your home directory.
 
 Read https://github.com/eliranwong/letmedoit/wiki/Google-API-Setup for setting up Google API.
 
