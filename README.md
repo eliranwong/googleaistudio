@@ -22,6 +22,8 @@ Read https://github.com/eliranwong/letmedoit/wiki/Google-API-Setup for setting u
 
 # Usage
 
+Run in terminal:
+
 > geminipro
 
 # Documentation for Developers
