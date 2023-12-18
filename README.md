@@ -34,6 +34,10 @@ Run in terminal:
 
 > palm2
 
+# Integration with Google AI Tools
+
+https://github.com/eliranwong/letmedoit/wiki/Integration-with-Google-AI-Tools
+
 # Documentation for Developers
 
 https://cloud.google.com/vertex-ai/docs/generative-ai/learn/overview
