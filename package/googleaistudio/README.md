@@ -4,13 +4,15 @@ A collection of AI tools built on Google Vertex AI APIs.
 
 Current available features:
 
-* a simple chat bot built on Google Gemini Pro
+* geminipro - a multiturn chat bot built on Google Gemini Pro
+
+* palm2 - a multiturn chat bot built on Google PaLM 2
 
 plan: vision and other features
 
 It is part of integrated tools, developed in our [LetMeDoIt AI project](https://github.com/eliranwong/letmedoit).
 
-# Install
+# Install or Upgrade
 
 > pip install --upgrade googleaistudio
 
@@ -25,6 +27,8 @@ Read https://github.com/eliranwong/letmedoit/wiki/Google-API-Setup for setting u
 Run in terminal:
 
 > geminipro
+
+> palm2
 
 # Documentation for Developers
 
