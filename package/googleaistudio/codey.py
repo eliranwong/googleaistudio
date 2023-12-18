@@ -1,4 +1,4 @@
-import vertexai, os, traceback
+import vertexai, os, traceback, argparse
 from vertexai.language_models import CodeChatModel
 from googleaistudio import config
 from googleaistudio.health_check import HealthCheck
@@ -37,7 +37,7 @@ class Codey:
         vertexai.init()
         self.name = name
 
-    def run(self, prompt="", model="codechat-bison-32k", temperature=0.2):
+    def run(self, prompt="", model="codechat-bison-32k", temperature=0.2, max_output_tokens=2048):
         historyFolder = os.path.join(HealthCheck.getFiles(), "history")
         Path(historyFolder).mkdir(parents=True, exist_ok=True)
         chat_history = os.path.join(historyFolder, self.name.replace(" ", "_"))
@@ -57,10 +57,10 @@ class Codey:
         # https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/code-chat
         parameters = {
             "temperature": temperature,  # Temperature controls the degree of randomness in token selection; 0.0–1.0; Default: 0.2
-            "max_output_tokens": 2048,  # Token limit determines the maximum amount of text output; 1–2048; Default: 1024
+            "max_output_tokens": max_output_tokens,  # Token limit determines the maximum amount of text output; 1–2048; Default: 1024
         }
         chat = model.start_chat(
-            context=f"You're {self.name}, an expertise about coding.",
+            context=f"You're {self.name}, an expert in coding.",
         )
         HealthCheck.print2(f"\n{self.name} loaded!")
         print("(To start a new chart, enter '.new')")
@@ -83,12 +83,13 @@ class Codey:
                     response = chat.send_message(
                         prompt, **parameters
                     )
-                    config.pagerContent = response.text
-
+                    config.pagerContent = response.text.strip()
                     # color response with markdown style
                     tokens = list(pygments.lex(config.pagerContent, lexer=MarkdownLexer()))
                     print_formatted_text(PygmentsTokens(tokens), style=HealthCheck.getPygmentsStyle())
-
+                    # integrate messages into LetMeDoIt messages
+                    if hasattr(config, "currentMessages") and config.pagerContent:
+                        config.currentMessages.append({"role": "assistant", "content": config.pagerContent})
                 except:
                     HealthCheck.print2(traceback.format_exc())
 
@@ -97,7 +98,39 @@ class Codey:
         HealthCheck.print2(f"\n{self.name} closed!\n")
 
 def main():
-    Codey().run()
+    # Create the parser
+    parser = argparse.ArgumentParser(description="codey cli options")
+    # Add arguments
+    parser.add_argument("default", nargs="?", default=None, help="default entry")
+    parser.add_argument('-m', '--model', action='store', dest='model', help="specify language model with -m flag; default: codechat-bison-32k")
+    parser.add_argument('-o', '--outputtokens', action='store', dest='outputtokens', help="specify maximum output tokens with -o flag; default: 2048")
+    parser.add_argument('-t', '--temperature', action='store', dest='temperature', help="specify temperature with -t flag; default: 0.2")
+    # Parse arguments
+    args = parser.parse_args()
+    # Get options
+    prompt = args.default.strip() if args.default and args.default.strip() else ""
+    model = args.model.strip() if args.model and args.model.strip() else "codechat-bison-32k"
+    if args.outputtokens or args.outputtokens.strip():
+        try:
+            max_output_tokens = int(args.outputtokens.strip())
+        except:
+            max_output_tokens = 2048
+    else:
+        max_output_tokens = 2048
+    if args.temperature or not args.temperature.strip():
+        try:
+            temperature = float(args.temperature.strip())
+        except:
+            temperature = 0.2
+    else:
+        temperature = 0.2
+    # Run codey
+    Codey().run(
+        prompt=prompt,
+        model=model,
+        temperature=temperature,
+        max_output_tokens = max_output_tokens,
+    )
 
 if __name__ == '__main__':
     main()

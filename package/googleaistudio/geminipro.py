@@ -1,4 +1,4 @@
-import vertexai, os, traceback
+import vertexai, os, traceback, argparse
 from vertexai.preview.generative_models import GenerativeModel
 from vertexai.generative_models._generative_models import (
     GenerationConfig,
@@ -182,7 +182,7 @@ class GeminiPro:
         
         finishOutputs(wrapWords, chat_response)
 
-    def run(self, prompt="", temperature=0.9):
+    def run(self, prompt="", temperature=0.9, max_output_tokens=8192):
         historyFolder = os.path.join(HealthCheck.getFiles(), "history")
         Path(historyFolder).mkdir(parents=True, exist_ok=True)
         chat_history = os.path.join(historyFolder, "geminipro")
@@ -205,7 +205,6 @@ class GeminiPro:
         HealthCheck.print2(f"\n{self.name} loaded!")
         print("(To start a new chart, enter '.new')")
         print(f"(To quit, enter '{config.exit_entry}')\n")
-        import re, time
         while True:
             if not prompt:
                 prompt = HealthCheck.simplePrompt(style=promptStyle, promptSession=chat_session)
@@ -229,7 +228,7 @@ class GeminiPro:
                         # Optional:
                         generation_config=GenerationConfig(
                             temperature=temperature, # 0.0-1.0; default 0.9
-                            max_output_tokens=8192, # default
+                            max_output_tokens=max_output_tokens, # default
                             candidate_count=1,
                         ),
                         safety_settings={
@@ -268,7 +267,35 @@ class GeminiPro:
         HealthCheck.print2(f"\n{self.name} closed!\n")
 
 def main():
-    GeminiPro().run()
+    # Create the parser
+    parser = argparse.ArgumentParser(description="geminipro cli options")
+    # Add arguments
+    parser.add_argument("default", nargs="?", default=None, help="default entry")
+    parser.add_argument('-o', '--outputtokens', action='store', dest='outputtokens', help="specify maximum output tokens with -o flag; default: 8192")
+    parser.add_argument('-t', '--temperature', action='store', dest='temperature', help="specify temperature with -t flag: default: 0.9")
+    # Parse arguments
+    args = parser.parse_args()
+    # Get options
+    prompt = args.default.strip() if args.default and args.default.strip() else ""
+    if args.outputtokens or args.outputtokens.strip():
+        try:
+            max_output_tokens = int(args.outputtokens.strip())
+        except:
+            max_output_tokens = 8192
+    else:
+        max_output_tokens = 8192
+    if args.temperature or not args.temperature.strip():
+        try:
+            temperature = float(args.temperature.strip())
+        except:
+            temperature = 0.9
+    else:
+        temperature = 0.9
+    GeminiPro().run(
+        prompt=prompt,
+        temperature=temperature,
+        max_output_tokens = max_output_tokens,
+    )
 
 if __name__ == '__main__':
     main()

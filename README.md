@@ -36,6 +36,22 @@ Run in terminal:
 
 > palm2
 
+> codey
+
+# CLI options
+
+> geminipro -h
+
+> geminipro -t 0.5 -o 1024 "Hello!"
+
+> palm2 -h
+
+> palm2 -m "chat-bison" -t 0.5 -o 1024 "Hello!"
+
+> codey -h
+
+> codey -m "codechat-bison" -t 0.5 -o 1024 "How to use decorators in python?"
+
 # Integration in LetMeDoIt AI project
 
 https://github.com/eliranwong/letmedoit/wiki/Integration-with-Google-AI-Tools
