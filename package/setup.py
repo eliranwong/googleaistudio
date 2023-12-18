@@ -22,17 +22,19 @@ with open(os.path.join(package, "requirements.txt"), "r") as fileObj:
 # https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/
 setup(
     name=package,
-    version="0.0.3",
+    version="0.0.5",
     python_requires=">=3.8",
-    description="A simple chat bot built on Google Gemini Pro. An integrated tool, developed in LetMeDoIt AI project.",
+    description="A simple chat bot built on Google Gemini Pro and prompt toolkit. An integrated tool, developed in LetMeDoIt AI project.",
     long_description=long_description,
     author="Eliran Wong",
     author_email="support@letmedoit.ai",
     packages=[
         package,
+        f"{package}.utils",
     ],
     package_data={
         package: ["*.*"],
+        f"{package}.utils": ["*.*"],
     },
     license="GNU General Public License (GPL)",
     install_requires=install_requires,
