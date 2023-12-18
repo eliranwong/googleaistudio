@@ -10,7 +10,11 @@ Current available features:
 
 plan: vision and other features
 
-It is part of integrated tools, developed in our [LetMeDoIt AI project](https://github.com/eliranwong/letmedoit).
+These are part of integrated tools, developed in our [LetMeDoIt AI project](https://github.com/eliranwong/letmedoit).
+
+# Screenshot
+
+<img width="1440" alt="geminipro_palm2" src="https://github.com/eliranwong/letmedoit/assets/25262722/dc6f874e-ae11-4514-9ed0-3d22f2b1985c">
 
 # Install or Upgrade
 
