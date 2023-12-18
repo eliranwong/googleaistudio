@@ -36,7 +36,7 @@ Run in terminal:
 
 > palm2
 
-# Integration with Google AI Tools
+# Integration in LetMeDoIt AI project
 
 https://github.com/eliranwong/letmedoit/wiki/Integration-with-Google-AI-Tools
 
