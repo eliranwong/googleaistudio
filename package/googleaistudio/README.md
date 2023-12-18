@@ -4,13 +4,19 @@ A collection of AI tools built on Google Vertex AI APIs.
 
 Current available features:
 
-* geminipro - a multiturn chat bot built on Google Gemini Pro
+* geminipro - a multiturn chat bot built on Google [Gemini Pro](https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/overview) (LLM: Gemini Pro)
 
-* palm2 - a multiturn chat bot built on Google PaLM 2
+* palm2 - a multiturn chat bot built on Google [PaLM 2](https://cloud.google.com/vertex-ai/docs/generative-ai/language-model-overview) (LLM: chat-bison-32k)
+
+* codey - a multiturn chat bot built on [Codey](https://cloud.google.com/vertex-ai/docs/generative-ai/code/code-models-overview) (LLM: codechat-bison-32k)
 
 plan: vision and other features
 
-It is part of integrated tools, developed in our [LetMeDoIt AI project](https://github.com/eliranwong/letmedoit).
+These are part of integrated tools, developed in our [LetMeDoIt AI project](https://github.com/eliranwong/letmedoit).
+
+# Screenshot
+
+<img width="1440" alt="geminipro_palm2" src="https://github.com/eliranwong/letmedoit/assets/25262722/dc6f874e-ae11-4514-9ed0-3d22f2b1985c">
 
 # Install or Upgrade
 
@@ -29,6 +35,10 @@ Run in terminal:
 > geminipro
 
 > palm2
+
+# Integration with Google AI Tools
+
+https://github.com/eliranwong/letmedoit/wiki/Integration-with-Google-AI-Tools
 
 # Documentation for Developers
 
