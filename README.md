@@ -1,6 +1,8 @@
 # Google AI Studio
 
-A collection of AI tools built on Google Vertex AI APIs.
+A collection of AI tools built on Google Vertex AI APIs. 
+
+At the time of writing, web-based Google AI Studio is not accessible in [EU /UK / some other regions](https://ai.google.dev/available_regions#available_regions).  As this collection is based on Google Vertex AI APIs, there is no such restriction.
 
 Current available features:
 
