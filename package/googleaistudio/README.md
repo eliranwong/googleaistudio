@@ -1,16 +1,16 @@
 # Google AI Studio
 
-A collection of AI tools built on Google Vertex AI APIs.
+A collection of AI tools built on Google Vertex AI APIs. It works even in EU / UK.
+
+At the time of writing, web-based Google AI Studio is not accessible in [EU / UK / some other regions](https://ai.google.dev/available_regions#available_regions).  As this python package is based on Google Vertex AI APIs, there is no such restriction.
 
 Current available features:
 
-* geminipro - a multiturn chat bot built on Google [Gemini Pro](https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/overview) (LLM: Gemini Pro)
+* geminipro - a multiturn chat bot built on Google [Gemini Pro & Gemini Pro Vision](https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/overview) (LLM: Gemini Pro)
 
 * palm2 - a multiturn chat bot built on Google [PaLM 2](https://cloud.google.com/vertex-ai/docs/generative-ai/language-model-overview) (LLM: chat-bison-32k)
 
 * codey - a multiturn chat bot built on [Codey](https://cloud.google.com/vertex-ai/docs/generative-ai/code/code-models-overview) (LLM: codechat-bison-32k)
-
-plan: vision and other features
 
 These are part of integrated tools, developed in our [LetMeDoIt AI project](https://github.com/eliranwong/letmedoit).
 
@@ -24,7 +24,7 @@ These are part of integrated tools, developed in our [LetMeDoIt AI project](http
 
 # Google API Setup
 
-Save a copy of your API key JSON file as "\~/credentials_googleaistudio.json", where "\~" denotes your home directory.
+Save a copy of your API key JSON file as "\~/googleaistudio/credentials_googleaistudio.json", where "\~" denotes your home directory.
 
 Read https://github.com/eliranwong/letmedoit/wiki/Google-API-Setup for setting up Google API.
 
