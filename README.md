@@ -12,8 +12,6 @@ Current available features:
 
 * codey - a multiturn chat bot built on [Codey](https://cloud.google.com/vertex-ai/docs/generative-ai/code/code-models-overview) (LLM: codechat-bison-32k)
 
-plan: vision and other features
-
 These are part of integrated tools, developed in our [LetMeDoIt AI project](https://github.com/eliranwong/letmedoit).
 
 # Screenshot
