@@ -4,7 +4,7 @@ A collection of AI tools built on Google Vertex AI APIs.
 
 Current available features:
 
-* geminipro - a multiturn chat bot built on Google [Gemini Pro](https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/overview) (LLM: Gemini Pro)
+* geminipro - a multiturn chat bot built on Google [Gemini Pro & Gemini Pro Vision](https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/overview) (LLM: Gemini Pro)
 
 * palm2 - a multiturn chat bot built on Google [PaLM 2](https://cloud.google.com/vertex-ai/docs/generative-ai/language-model-overview) (LLM: chat-bison-32k)
 

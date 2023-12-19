@@ -14,6 +14,7 @@ from prompt_toolkit import print_formatted_text
 from prompt_toolkit.styles import Style
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
+from prompt_toolkit.shortcuts import clear
 from pathlib import Path
 
 
@@ -83,6 +84,7 @@ class VertexAIModel:
             if prompt == config.exit_entry:
                 break
             elif prompt == ".new":
+                clear()
                 chat = model.start_chat()
                 print("New chat started!")
             elif prompt := prompt.strip():
@@ -117,14 +119,14 @@ def main():
     # Get options
     prompt = args.default.strip() if args.default and args.default.strip() else ""
     model = args.model.strip() if args.model and args.model.strip() else "chat-bison-32k"
-    if args.outputtokens or args.outputtokens.strip():
+    if args.outputtokens and args.outputtokens.strip():
         try:
             max_output_tokens = int(args.outputtokens.strip())
         except:
             max_output_tokens = 2048
     else:
         max_output_tokens = 2048
-    if args.temperature or not args.temperature.strip():
+    if args.temperature and args.temperature.strip():
         try:
             temperature = float(args.temperature.strip())
         except:
