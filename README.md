@@ -34,6 +34,8 @@ Run in terminal:
 
 > geminipro
 
+> geminiprovision
+
 > palm2
 
 > codey
@@ -43,6 +45,10 @@ Run in terminal:
 > geminipro -h
 
 > geminipro -t 0.5 -o 1024 "Hello!"
+
+> geminiprovision -h
+
+> geminiprovision -f image.png -t 0.5 -o 1024 "Describe this image file"
 
 > palm2 -h
 

@@ -22,7 +22,7 @@ with open(os.path.join(package, "requirements.txt"), "r") as fileObj:
 # https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/
 setup(
     name=package,
-    version="0.0.17",
+    version="0.0.20",
     python_requires=">=3.8",
     description="Gemini Pro & PaLM 2. A collection of AI tools built on Google Vertex AI APIs. These are part of integrated tools, developed in LetMeDoIt AI project.",
     long_description=long_description,
@@ -41,6 +41,7 @@ setup(
     entry_points={
         "console_scripts": [
             f"geminipro=googleaistudio.geminipro:main",
+            f"geminiprovision=googleaistudio.geminiprovision:main",
             f"palm2=googleaistudio.palm2:main",
             f"codey=googleaistudio.codey:main",
         ],

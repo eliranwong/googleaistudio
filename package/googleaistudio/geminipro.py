@@ -72,6 +72,7 @@ class GeminiPro:
             HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
         }
         self.defaultPrompt = ""
+        self.enableVision = (os.path.realpath(__file__).endswith("vision.py"))
 
     def wrapText(self, content, terminal_width):
         return "\n".join([textwrap.fill(line, width=terminal_width) for line in content.split("\n")])
@@ -138,7 +139,7 @@ class GeminiPro:
 
         asyncio.run(readKeys())
 
-    def streamOutputs(self, streaming_event, completion):
+    def streamOutputs(self, streaming_event, completion, prompt):
         terminal_width = shutil.get_terminal_size().columns
 
         def finishOutputs(wrapWords, chat_response, terminal_width=terminal_width):
@@ -168,6 +169,7 @@ class GeminiPro:
             if not streaming_event.is_set() and not self.streaming_finished:
                 # RETRIEVE THE TEXT FROM THE RESPONSE
                 # vertex
+                #print(str(event.candidates[0].content))
                 function_call = ("function_call" in str(event.candidates[0].content))
                 if not function_call:
                     answer = event.text
@@ -177,9 +179,16 @@ class GeminiPro:
                 # STREAM THE ANSWER
                 if function_call:
                     # assume only one tool is in place
-                    function_args = dict(event.candidates[0].content.parts[0].function_call.args)
-                    HealthCheck.print2("Running Gemini Pro Vision ...")
-                    self.analyze_images(function_args)
+                    try:
+                        function_args = dict(event.candidates[0].content.parts[0].function_call.args)
+                        files = function_args["files"]
+                        if not files or (len(files) == 1 and not files[0]): # {'files': [''], 'query': 'my query'}
+                            self.defaultPrompt = f"{prompt}\n[NO_FUNCTION_CALL]"
+                        else:
+                            HealthCheck.print2("Running Gemini Pro Vision ...")
+                            self.analyze_images(function_args)
+                    except:
+                        self.defaultPrompt = f"{prompt}\n[NO_FUNCTION_CALL]"
                     self.streaming_finished = True
                 elif answer is not None:
                     # display the chunk
@@ -227,7 +236,7 @@ class GeminiPro:
             "indicator": config.terminalPromptIndicatorColor2,
         })
 
-        completer = WordCompleter(["[", "[NO_FUNCTION_CALL]"], ignore_case=True)
+        completer = WordCompleter(["[", "[NO_FUNCTION_CALL]"], ignore_case=True) if self.enableVision else None
 
         if not self.runnable:
             print(f"{self.name} is not running due to missing configurations!")
@@ -236,7 +245,7 @@ class GeminiPro:
         chat = model.start_chat(
             #context=f"You're {self.name}, a helpful AI assistant.",
         )
-        HealthCheck.print2(f"\n{self.name} loaded!")
+        HealthCheck.print2(f"\n{self.name} + Vision loaded!" if self.enableVision else f"\n{self.name} loaded!")
         print("(To start a new chart, enter '.new')")
         print(f"(To quit, enter '{config.exit_entry}')\n")
         while True:
@@ -281,7 +290,10 @@ class GeminiPro:
 
                 try:
                     # https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini
-                    if "[NO_FUNCTION_CALL]" in prompt:
+                    # Note: At the time of writing, function call feature with Gemini Pro is very weak, compared with the function call feature offerred by ChatGPT:
+                    # 1. Gemini Pro do not accept multiple tools in a single message
+                    # 2. Gemini Pro is weak to determine if it is appropriate to use the given tool or not.  When a tool is given, it is called by mistake so often.  In contrast, ChatGPT has the "auto" setting which makes ChatGPT obviously smarter than Gemini Pro.
+                    if "[NO_FUNCTION_CALL]" in prompt or not self.enableVision:
                         allow_function_call = False
                         prompt = prompt.replace("[NO_FUNCTION_CALL]", "")
                     else:
@@ -298,7 +310,7 @@ class GeminiPro:
                     # Create a new thread for the streaming task
                     self.streaming_finished = False
                     streaming_event = threading.Event()
-                    self.streaming_thread = threading.Thread(target=self.streamOutputs, args=(streaming_event, completion,))
+                    self.streaming_thread = threading.Thread(target=self.streamOutputs, args=(streaming_event, completion, prompt,))
                     # Start the streaming thread
                     self.streaming_thread.start()
 
