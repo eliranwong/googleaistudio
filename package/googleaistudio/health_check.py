@@ -1,4 +1,4 @@
-import os, traceback, json, pprint, wcwidth, textwrap, threading, time
+import os, traceback, json, pprint, wcwidth, textwrap, threading, time, platform, subprocess
 #import openai
 #from openai import OpenAI
 #from chromadb.utils import embedding_functions
@@ -48,6 +48,7 @@ class HealthCheck:
         config.includeIpInSystemMessage = False
         config.wrapWords = True
         config.pygments_style = ""
+        config.ttsOutput = False
         HealthCheck.setPrint()
 
     @staticmethod
@@ -254,3 +255,12 @@ class HealthCheck:
                             fileObj.write("{0} = {1}\n".format(name, pprint.pformat(value)))
                     except:
                         pass
+
+    @staticmethod
+    def isPackageInstalled(package):
+        whichCommand = "where.exe" if platform.system() == "Windows" else "which"
+        try:
+            isInstalled, *_ = subprocess.Popen("{0} {1}".format(whichCommand, package), shell=True, stdout=subprocess.PIPE).communicate()
+            return True if isInstalled else False
+        except:
+            return False

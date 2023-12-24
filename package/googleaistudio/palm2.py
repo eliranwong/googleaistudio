@@ -1,7 +1,7 @@
 import vertexai, os, traceback, argparse, threading
 from vertexai.language_models import ChatModel
 from googleaistudio import config
-from googleaistudio.streaming_word_wrapper import StreamingWordWrapper
+from googleaistudio.utils.streaming_word_wrapper import StreamingWordWrapper
 from googleaistudio.health_check import HealthCheck
 if not hasattr(config, "exit_entry"):
     HealthCheck.setBasicConfig()
@@ -92,7 +92,7 @@ class VertexAIModel:
 
                     # Create a new thread for the streaming task
                     streaming_event = threading.Event()
-                    self.streaming_thread = threading.Thread(target=streamingWordWrapper.streamOutputs, args=(streaming_event, completion, prompt,))
+                    self.streaming_thread = threading.Thread(target=streamingWordWrapper.streamOutputs, args=(streaming_event, completion,))
                     # Start the streaming thread
                     self.streaming_thread.start()
 

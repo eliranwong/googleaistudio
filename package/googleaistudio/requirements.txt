@@ -5,3 +5,5 @@ pyperclip
 argparse
 pillow
 requests
+gTTS
+pygame
